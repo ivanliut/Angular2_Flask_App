@@ -58,6 +58,47 @@ def createStudent():
 
         return jsonify({'name' : 'Missing data. It didnt work'})
 
+@app.route('/updateStudent', methods=["POST"])
+def updateStudent():
+
+        id = request.args.get('id')
+        email = request.args.get('email')
+        first_name = request.args.get('first_name')
+        last_name = request.args.get('last_name')
+        in_group = request.args.get('in_group')
+        tel_number = request.args.get('tel_number')
+
+
+        #let's save new student's info into our database
+        cur = mysql.connection.cursor()
+        cur.execute('''UPDATE `students` SET `first_name` = %s, `last_name` = %s, `email` = %s, `tel_number` = %s, `in_group` = %s WHERE id = %s''', (first_name, last_name, email, tel_number, in_group, id))
+        mysql.connection.commit()
+
+        if email and first_name and last_name and in_group and tel_number:
+            return jsonify({'success': 'Everythig went successful'})
+
+
+        return jsonify({'name' : 'Missing data. It didnt work'})
+
+
+@app.route('/deleteStudent', methods=["POST"])
+def deleteStudent():
+
+        id = request.args.get('id')
+
+
+
+        #let's delete designayed student's info from our database
+        cur = mysql.connection.cursor()
+        cur.execute('''DELETE FROM `students` WHERE id = %s''', (id))
+        mysql.connection.commit()
+
+        if id:
+            return jsonify({'success': 'Everythig went successful'})
+
+
+        return jsonify({'name' : 'Missing data. It didnt work'})
+
 
 @app.route('/search')
 def searchStudent():
@@ -67,7 +108,7 @@ def searchStudent():
     searchStr = searchStr + "%"
     searchStr = str(searchStr)
     print(searchStr)
-    cur.execute('''SELECT id, first_name, last_name  FROM students WHERE first_name LIKE %s''', [searchStr])
+    cur.execute('''SELECT id, first_name, last_name  FROM students WHERE first_name LIKE %s OR  last_name LIKE %s''', [searchStr, searchStr])
     rv = cur.fetchall()
     data_to_send = []
     for i in rv:
