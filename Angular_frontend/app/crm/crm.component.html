@@ -1,0 +1,13 @@
+<h3 class="page-header">Students List</h3>
+
+<div *ngIf="students_data">
+         <div *ngFor = "let item of students_data">
+                <div class="row"> 
+                        <div class="col-md-12">
+                            <div class="search-res well">
+                          <h4> {{item['first_name']}}  {{item['last_name']}} </h4>
+                            </div>
+                        </div>
+                </div>
+         </div>
+</div>

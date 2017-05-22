@@ -1,0 +1,26 @@
+<h3 class="page-header">Add Students</h3>
+<form (submit)="onAdd()">
+  <div class="form-group">
+    <label>First Name</label>
+    <input class="form-control" type="text" [(ngModel)]="first_name" name="first_name" required>
+  </div>
+  <div class="form-group">
+    <label>Last Name </label>
+    <input class="form-control" type="text" [(ngModel)]="last_name" name="last_name" required>
+  </div>
+ 
+  <div class="form-group">
+    <label>Email</label>
+    <input class="form-control" type="text" [(ngModel)]="email" name="email" required>
+  </div>
+  <div class="form-group">
+    <label>Tel Number</label>
+    <input class="form-control" type="text" [(ngModel)]="tel_number" name="tel_numbers" required>
+  </div>
+  <div class="form-group">
+    <label>In Group</label>
+    <input class="form-control"  type="text" [(ngModel)]="in_group" name="in_group" required>
+  </div>
+
+  <input type="submit" value="Save" class="btn btn-success">
+</form>
